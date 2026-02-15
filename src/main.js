@@ -103,7 +103,8 @@ function analyzeSalesData(data, options) {
         seller.revenue += record.total_amount;
 
         record.items.forEach(item => {
-            const product = productIndex[item.sku];
+            const sku = item.sku.trim();
+            const product = productIndex[sku];
             if (!product) return; // если товара нет в каталоге, пропускаем
 
             const cost = product.purchase_price * item.quantity;
@@ -112,7 +113,6 @@ function analyzeSalesData(data, options) {
             seller.profit += profit;
 
             // Учёт количества проданных товаров
-            const sku = item.sku;
             seller.products_sold[sku] = (seller.products_sold[sku] || 0) + item.quantity;
         });
     });
