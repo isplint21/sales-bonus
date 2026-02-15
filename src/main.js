@@ -5,8 +5,13 @@
  * @returns {number}
  */
 function calculateSimpleRevenue(purchase, _product) {
+    // Если purchase сам является товаром (содержит sale_price и quantity)
+    if (purchase && typeof purchase === 'object' && 'sale_price' in purchase && 'quantity' in purchase) {
+        const discount = purchase.discount ? 1 - purchase.discount / 100 : 1;
+        return purchase.sale_price * purchase.quantity * discount;
+    }
+    // Иначе ищем массив товаров в purchase (для реальных данных)
     if (!purchase || typeof purchase !== 'object') return 0;
-    // Ищем любой массив объектов внутри purchase
     const possibleArrays = Object.values(purchase).filter(val => Array.isArray(val));
     let itemsArray = null;
     for (const arr of possibleArrays) {
@@ -21,6 +26,7 @@ function calculateSimpleRevenue(purchase, _product) {
     const discount = item.discount ? 1 - item.discount / 100 : 1;
     return item.sale_price * item.quantity * discount;
 }
+
 
 /**
  * Функция для расчета бонусов
