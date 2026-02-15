@@ -103,7 +103,7 @@ function analyzeSalesData(data, options) {
         profit: +seller.profit.toFixed(2),
         sales_count: seller.sales_count,
         top_products: seller.top_products,
-        bonus: +(seller.revenue * seller.bonus).toFixed(2)
+        bonus: +(<seller className="profit"></seller> * seller.bonus).toFixed(2)
     }));
 }
 
