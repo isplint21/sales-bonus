@@ -5,7 +5,9 @@
  * @returns {number}
  */
 function calculateSimpleRevenue(purchase, _product) {
-    const item = purchase.items.find(i => i.sku === _product.sku);
+    const items = purchase.items || purchase.products || [];
+    if (!Array.isArray(items)) return 0;
+    const item = items.find(i => i.sku === _product.sku);
     if (!item) return 0;
     const discount = item.discount ? 1 - item.discount / 100 : 1;
     return item.sale_price * item.quantity * discount;
