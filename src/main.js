@@ -131,6 +131,6 @@ function analyzeSalesData(data, options) {
         profit: +seller.profit.toFixed(2),
         sales_count: seller.sales_count,
         top_products: seller.top_products,
-        bonus: tranclateToFixed(+seller.bonus, 2)
+        bonus: +seller.bonus.toFixed(2)
     }));
 }
